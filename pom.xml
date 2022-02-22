@@ -55,12 +55,14 @@
         </plugins>
     </reporting>
 
+<!--
     <scm>
         <connection>scm:git:git@github.com:IMSGlobal/basiclti-util-java.git</connection>
         <developerConnection>scm:git:git@github.com:IMSGlobal/basiclti-util-java.git</developerConnection>
         <url>git@github.com:IMSGlobal/basiclti-util-java.git</url>
       <tag>HEAD</tag>
   </scm>
+-->
 
     <properties>
         <powermock.version>1.5.5</powermock.version>
@@ -200,6 +202,7 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
@@ -213,9 +216,10 @@
                     </execution>
                 </executions>
             </plugin>
+            -->
         </plugins>
     </build>
-
+	<!--
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
@@ -226,5 +230,5 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
-
+	-->
 </project>

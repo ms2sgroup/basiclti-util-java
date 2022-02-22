@@ -5,6 +5,6 @@ package org.imsglobal.aspect;
  */
 public interface LtiKeySecretService {
 
-    public String getSecretForKey(String key);
+    public String findSecretForKey(String key);
 
 }

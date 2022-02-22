@@ -43,7 +43,7 @@ public class LtiLaunchVerifier {
             throw new IllegalStateException(getErrorMessageForArgumentClass("HttpServletRequest", pjp.getSignature().toLongString()));
         }
 
-        String oauthSecret = keyService.getSecretForKey(request.getParameter("oauth_consumer_key"));
+        String oauthSecret = keyService.findSecretForKey(request.getParameter("oauth_consumer_key"));
         LtiVerificationResult ltiResult = ltiVerifier.verify(request, oauthSecret);//BasicLTIUtil.validateMessage(request, request.getRequestURL().toString(), oauthSecret);
 
         Boolean ltiVerificationResultExists = false;
