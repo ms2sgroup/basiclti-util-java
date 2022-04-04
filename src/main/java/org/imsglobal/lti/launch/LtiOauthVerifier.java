@@ -29,7 +29,8 @@ public class LtiOauthVerifier implements LtiVerifier {
      */
     @Override
     public LtiVerificationResult verify(HttpServletRequest request, String secret) throws LtiVerificationException {
-        OAuthMessage oam = OAuthServlet.getMessage(request, OAuthServlet.getRequestURL(request));
+        //OAuthMessage oam = OAuthServlet.getMessage(request, OAuthServlet.getRequestURL(request));
+        OAuthMessage oam = OAuthServlet.getMessage(request, getRequestURL(request));
         String oauth_consumer_key = null;
         try {
             oauth_consumer_key = oam.getConsumerKey();
@@ -41,12 +42,12 @@ public class LtiOauthVerifier implements LtiVerifier {
         OAuthConsumer cons = new OAuthConsumer(null, oauth_consumer_key, secret, null);
         OAuthAccessor acc = new OAuthAccessor(cons);
 
-//        try {
-//            oav.validateMessage(oam, acc);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return new LtiVerificationResult(false, LtiError.BAD_REQUEST, "Failed to validate: " + e.getLocalizedMessage());
-//        }
+        try {
+            oav.validateMessage(oam, acc);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new LtiVerificationResult(false, LtiError.BAD_REQUEST, "Failed to validate: " + e.getLocalizedMessage());
+        }
         return new LtiVerificationResult(true, new LtiLaunch(request));
     }
 
@@ -73,4 +74,20 @@ public class LtiOauthVerifier implements LtiVerifier {
         }
         return new LtiVerificationResult(true, new LtiLaunch(parameters));
     }
+
+    private String getRequestURL(HttpServletRequest request) {
+        StringBuffer url = request.getRequestURL();
+        String queryString = request.getQueryString();
+        if (queryString != null) {
+            url.append("?").append(queryString);
+        }
+
+        String u = url.toString();
+        if (u.startsWith("http://bivintel.com")) {
+            u = u.replace("http://", "https://");
+        }
+
+        return u;
+    }
+
 }
